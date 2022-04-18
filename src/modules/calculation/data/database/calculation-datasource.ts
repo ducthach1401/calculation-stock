@@ -33,7 +33,9 @@ export class CalculationDatasource {
 
   async findOne(name: string) {
     return await this.calculationRepository.findOne({
-      code: name,
+      where: {
+        code: name,
+      },
     });
   }
 
