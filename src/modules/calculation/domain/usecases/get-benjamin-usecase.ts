@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { CalculationRepository } from '../repositories/calculation-repository';
 
 @Injectable()
-export class CalculateBenjaminUsecase {
+export class GetBenjaminUsecase {
   constructor(private readonly calculationRepository: CalculationRepository) {}
 
-  async call(): Promise<boolean> {
-    return this.calculationRepository.calculateBenjamin();
+  async call() {
+    return this.calculationRepository.getBenjamin();
   }
 }

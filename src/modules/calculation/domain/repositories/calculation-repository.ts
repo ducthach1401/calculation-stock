@@ -1,3 +1,4 @@
 export abstract class CalculationRepository {
-  abstract calculateBenjamin(): Promise<Record<string, any>>;
+  abstract calculateBenjamin(): Promise<boolean>;
+  abstract getBenjamin(): Promise<any>;
 }
