@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  node:
+    image: node:16-alpine
+    command: /bin/sh -c "cd /app && npm install && npm run start:debug"
+    ports:
+      - 5000:5000
+    volumes:
+      - ../:/app
