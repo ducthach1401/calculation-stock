@@ -95,4 +95,19 @@ export class CalculationService {
       Math.round((nEps * (this.PE + g2) * this.Risk) / this.Y),
     ];
   }
+
+  async priceAll() {
+    const dataStock = await lastValueFrom(
+      this.httpService.get('https://banggia.cafef.vn/stockhandler.ashx'),
+    );
+    let result = [];
+    for (const stock of dataStock.data) {
+      if (stock.a.length == 3) {
+        result.push({
+          [stock.a]: stock.l,
+        });
+      }
+    }
+    return result;
+  }
 }
