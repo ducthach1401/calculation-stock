@@ -24,7 +24,7 @@ export class CalculationService {
         price_rating_2: price[2],
         safe_price: Math.round(price[1] * (1 - 0.12)),
       };
-      const check = await this.calculationDatasource.findOne('XXX');
+      const check = await this.calculationDatasource.findOne(stock);
       if (check == undefined) {
         await this.calculationDatasource.create({
           code: stock,
@@ -60,7 +60,7 @@ export class CalculationService {
         result.push(data.EPS * 1000);
       }
     }
-    return result.reverse();
+    return result.reverse().slice(0, 10);
   }
 
   async recipeBenjamin(nEps: number, g: number) {
@@ -74,7 +74,7 @@ export class CalculationService {
       temp = (stockEps[i] / stockEps[i - 1] - 1) * 100;
       if (temp >= 50) {
         if (stockEps[i - 1] > 0) {
-          stockEps[i] = Math.round(stockEps[i - 1] * 1.1);
+          stockEps[i] = Math.round(stockEps[i] * 0.8);
         }
       }
     }
@@ -100,12 +100,10 @@ export class CalculationService {
     const dataStock = await lastValueFrom(
       this.httpService.get('https://banggia.cafef.vn/stockhandler.ashx'),
     );
-    let result = [];
+    let result = {};
     for (const stock of dataStock.data) {
       if (stock.a.length == 3) {
-        result.push({
-          [stock.a]: stock.l,
-        });
+        result[stock.a] = stock.l * 1000;
       }
     }
     return result;

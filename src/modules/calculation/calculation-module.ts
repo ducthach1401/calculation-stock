@@ -10,6 +10,7 @@ import { CalculationRepositoryImpl } from './data/repositories/calculation-repos
 import { CalculationService } from './data/services/calculation-service';
 import { CalculationRepository } from './domain/repositories/calculation-repository';
 import { CalculateBenjaminUsecase } from './domain/usecases/calculate-benjamin-usecase';
+import { GetAllPriceUsecase } from './domain/usecases/get-all-price-usecase';
 import { GetBenjaminUsecase } from './domain/usecases/get-benjamin-usecase';
 
 @Module({
@@ -36,6 +37,7 @@ import { GetBenjaminUsecase } from './domain/usecases/get-benjamin-usecase';
     CalculationService,
     CalculationDatasource,
     GetBenjaminUsecase,
+    GetAllPriceUsecase,
   ],
 })
 export class CalculationModule {}

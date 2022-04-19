@@ -19,4 +19,8 @@ export class CalculationRepositoryImpl extends CalculationRepository {
   async getBenjamin(): Promise<any> {
     return this.calculationDatasource.find();
   }
+
+  async getAllPrice(): Promise<any> {
+    return this.calculationService.priceAll();
+  }
 }
