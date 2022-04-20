@@ -69,17 +69,28 @@ export class CalculationService {
   }
 
   async getNormalizedEps(nameStock: string) {
-    const stockEps = await this.getEpsStock(nameStock);
+    let stockEps = await this.getEpsStock(nameStock);
     let temp = 0;
     for (let i = 1; i < stockEps.length; i++) {
       temp = (stockEps[i] / stockEps[i - 1] - 1) * 100;
-      if (temp >= 50) {
+      if (temp >= 40) {
         if (stockEps[i - 1] > 0) {
           stockEps[i] = Math.round(stockEps[i] * 0.8);
         }
       }
     }
 
+    stockEps = stockEps.reverse();
+    for (let i = 1; i < stockEps.length; i++) {
+      temp = (stockEps[i] / stockEps[i - 1]) * 100;
+      if (temp >= 40) {
+        if (stockEps[i - 1] > 0) {
+          stockEps[i] = Math.round(stockEps[i] * 0.8);
+        }
+      }
+    }
+    console.log(nameStock);
+    console.log(stockEps);
     let ave = 0;
     for (const stock of stockEps) {
       ave += stock;
