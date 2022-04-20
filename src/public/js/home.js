@@ -80,11 +80,11 @@ async function updatePrice() {
     if (pricetd) {
       pricetd.innerText = priceStocks[stock.code].toLocaleString('vi-vn');
       if (priceStocks[stocks.code] <= stock.safe_price) {
-        td.setAttribute('class', 'green');
+        pricetd.setAttribute('class', 'green');
       } else if (priceStocks[stock.code] > stock.price_rating_2) {
-        td.setAttribute('class', 'red');
+        pricetd.setAttribute('class', 'red');
       } else {
-        td.setAttribute('class', 'orange');
+        pricetd.setAttribute('class', 'orange');
       }
     }
   }
