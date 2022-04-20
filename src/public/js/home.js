@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:5000';
+// const API_URL = 'http://localhost:5000';
+const API_URL = 'https://calculation-stock.glitch.me';
 
 async function getPrice() {
   const response = await fetch(`${API_URL}/v1/stock/price`, {
@@ -30,10 +31,12 @@ async function addRow() {
   let td;
   let tr;
   let table = document.getElementById('table-stock');
+  let count = 0;
   for (const stock of stocks) {
     tr = document.createElement('tr');
     td = document.createElement('td');
     td.innerText = stock.code;
+    td.setAttribute('class', 'code');
     tr.appendChild(td);
 
     td = document.createElement('td');
@@ -54,7 +57,14 @@ async function addRow() {
 
     td = document.createElement('td');
     td.innerText = priceStocks[stock.code].toLocaleString('vi-vn');
-    td.setAttribute('id', stock);
+    td.setAttribute('id', stock.code);
+    if (priceStocks[stock.code] <= stock.safe_price) {
+      td.setAttribute('class', 'green');
+    } else if (priceStocks[stock.code] > stock.price_rating_2) {
+      td.setAttribute('class', 'red');
+    } else {
+      td.setAttribute('class', 'orange');
+    }
     tr.appendChild(td);
 
     table.appendChild(tr);
@@ -63,11 +73,20 @@ async function addRow() {
 
 async function updatePrice() {
   const priceStocks = await getPrice();
+  const stocks = await getStock();
   let pricetd;
-  for (let key in priceStocks) {
-    pricetd = document.getElementById(key);
-    console.log(key);
-    pricetd.innerText = priceStocks[key].toLocaleString('vi-vn');
+  for (const stock of stocks) {
+    pricetd = document.getElementById(stock.code);
+    if (pricetd) {
+      pricetd.innerText = priceStocks[stock.code].toLocaleString('vi-vn');
+      if (priceStocks[stocks.code] <= stock.safe_price) {
+        td.setAttribute('class', 'green');
+      } else if (priceStocks[stock.code] > stock.price_rating_2) {
+        td.setAttribute('class', 'red');
+      } else {
+        td.setAttribute('class', 'orange');
+      }
+    }
   }
 }
 addRow();

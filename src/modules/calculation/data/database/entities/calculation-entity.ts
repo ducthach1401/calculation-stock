@@ -33,3 +33,15 @@ export class CalculationEntity {
   @UpdateDateColumn()
   updated_at: Date;
 }
+
+@Entity('stockEPS')
+export class StockEpsEntity {
+  @ObjectIdColumn({ generated: true })
+  _id: ObjectID;
+
+  @Column()
+  name: string
+
+  @Column()
+  data: any
+}

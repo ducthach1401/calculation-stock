@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CalculationEntity } from './entities/calculation-entity';
+import {
+  CalculationEntity,
+  StockEpsEntity,
+} from './entities/calculation-entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -8,6 +11,8 @@ export class CalculationDatasource {
   constructor(
     @InjectRepository(CalculationEntity)
     private readonly calculationRepository: Repository<CalculationEntity>,
+    @InjectRepository(StockEpsEntity)
+    private readonly stockEpsEntity: Repository<StockEpsEntity>,
   ) {}
 
   async create(data: any) {
@@ -41,5 +46,13 @@ export class CalculationDatasource {
 
   async find() {
     return await this.calculationRepository.find({});
+  }
+
+  async findEps(name: string) {
+    return await this.stockEpsEntity.findOne({
+      where: {
+        name: name,
+      },
+    });
   }
 }

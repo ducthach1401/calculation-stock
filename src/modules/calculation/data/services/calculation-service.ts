@@ -42,25 +42,26 @@ export class CalculationService {
       this.httpService.get('https://banggia.cafef.vn/stockhandler.ashx'),
     );
     let result = [];
+    const listExcept = ['BAF', 'DXS', 'EVF', 'KHG', 'KPF', 'TCH'];
     for (const stock of dataStock.data) {
       if (stock.a.length == 3) {
-        result.push(stock.a);
+        if (!listExcept.includes(stock.a)) result.push(stock.a);
       }
     }
     return result;
   }
 
   async getEpsStock(name: string) {
-    const dataStock = await lastValueFrom(
-      this.httpService.get(`https://e.cafef.vn/fi.ashx?symbol=${name}`),
-    );
+    const dataStock = await this.calculationDatasource.findEps(name);
     let result = [];
-    for (const data of dataStock.data) {
-      if (data.EPS >= -10) {
-        result.push(data.EPS * 1000);
+
+    for (const key in dataStock.data) {
+      const esp = parseInt(dataStock.data[key].split(',').join(''));
+      if (!isNaN(esp)) {
+        result.push(esp);
       }
     }
-    return result.reverse().slice(0, 10);
+    return result;
   }
 
   async recipeBenjamin(nEps: number, g: number) {

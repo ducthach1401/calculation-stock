@@ -1,0 +1,44 @@
+tr {
+  text-align: center;
+  margin: auto;
+}
+
+.red {
+  color: red;
+  font-weight: bolder;
+}
+
+.green {
+  color: green;
+  font-weight: bolder;
+}
+
+.orange {
+  color: orange;
+  font-weight: bolder;
+}
+
+.code {
+  color: midnightblue;
+  font-weight: bolder;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+}
+
+th,
+td {
+  width: 150px;
+  padding: 5px;
+}
+
+th {
+  background-color: orange;
+}
+
+td {
+  background-color:ghostwhite;
+}
