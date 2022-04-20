@@ -79,7 +79,7 @@ async function updatePrice() {
     pricetd = document.getElementById(stock.code);
     if (pricetd) {
       pricetd.innerText = priceStocks[stock.code].toLocaleString('vi-vn');
-      if (priceStocks[stocks.code] <= stock.safe_price) {
+      if (priceStocks[stock.code] <= stock.safe_price) {
         pricetd.setAttribute('class', 'green');
       } else if (priceStocks[stock.code] > stock.price_rating_2) {
         pricetd.setAttribute('class', 'red');
